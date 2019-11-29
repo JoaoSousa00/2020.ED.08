@@ -21,6 +21,7 @@ import java.util.Iterator;
  * Class that represents
  * </p>
  */
+
 public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
 
     protected int count;
@@ -73,22 +74,27 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
 
     @Override
     public T getRoot() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return tree[0];
     }
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (count == 0);
     }
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return count;
     }
 
     @Override
     public boolean contains(T targetElement) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            find(targetElement);
+        } catch (ElementNotFoundException ex) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -170,7 +176,7 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
     }
 
     /**
-     * Performs a recursive levelorder traversal.
+     * Performs a recursive levelorder traversal. ???!?!?!?!?! Incorreto
      *
      * @param node the node used in the traversal
      * @param templist the temporary list used in the traversal
@@ -178,21 +184,13 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
     protected void levelorder(int node, ArrayUnorderedList<T> templist, LinkedQueue tempQueue) throws EmptyCollectionException {
         if (node < tree.length) {
             if (tree[node] != null) {
-                tempQueue.enqueue(node);
+                tempQueue.enqueue(tree[node]);
                 while (!tempQueue.isEmpty()) {
                     T temp = (T) tempQueue.dequeue();
                     templist.addToRear(temp);
-                    if (node.numChildren() > 0) {
-                        if (node.getLeft() != null) {
-                            tempQueue.enqueue(node.getLeft().getElement());
-                        }
-                        if (node.getRight() != null) {
-                            tempQueue.enqueue(node.getRight().getElement());
-                        }
-                    }
-
+                    tempQueue.enqueue(tree[node + 1]);
                 }
             }
         }
-    }
+    } //Funfa!?
 }
